@@ -58,13 +58,13 @@ function decodeTransactions(calldata: string) {
     const address = reader.readAddress();
     const value = reader.readUint256();
     const dataLength = reader.readUint256();
-    const data = reader.readBytes(getNumber(dataLength));
+    const data = dataLength > 0 ? reader.readBytes(getNumber(dataLength)) : '00';
 
     transactions.push({
       operation: operation,
       to: address,
       value,
-      data,
+      data: `0x${data}`
     });
   }
 
